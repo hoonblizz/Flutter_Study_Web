@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_study_web/routes/pages/home.dart';
 import 'package:flutter_study_web/routes/pages/second_page.dart';
@@ -12,23 +10,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name.getRoutingData;
   // print('Routing name: ${settings.name}');
   switch (routingData.route) {
-
-    // case RequestVisitRoute:
-    //   Map clientData = jsonDecode(routingData['data']);
-    //   return _getPageRoute(RequestVisit(clientData: clientData), settings);
-    // case RequestVisitDoneRoute:
-    //   String visitTime = routingData['visitTime'];
-    //   String visitorName = routingData['visitorName'];
-    //   String visitorPhone = routingData['visitorPhone'];
-    //   Map clientData = jsonDecode(routingData['clientData']);
-    //   return _getPageRoute(
-    //       RequestVisitDone(
-    //           visitTime: visitTime,
-    //           visitorName: visitorName,
-    //           visitorPhone: visitorPhone,
-    //           clientData: clientData),
-    //       settings);
-
     case HomeRoute:
       return _getPageRoute(HomePage(
         onPressRouteButton: () {
@@ -99,8 +80,6 @@ class NavigationService {
 
   Future<dynamic> navigateTo(String routeName,
       {Map<String, String> queryParams}) {
-    print(
-        '[ROUTE] NavigateTo: $routeName with param: ${queryParams.toString()}');
     if (queryParams != null) {
       routeName = Uri(path: routeName, queryParameters: queryParams).toString();
     }
@@ -109,7 +88,6 @@ class NavigationService {
   }
 
   void goBack() {
-    print('Path check before back: ${pathHistory}');
     if (pathHistory.length > 0) pathHistory.removeAt(pathHistory.length - 1);
     return navigatorKey.currentState.pop();
   }

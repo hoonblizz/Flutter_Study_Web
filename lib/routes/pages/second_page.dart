@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SecondPage extends StatelessWidget {
-  SecondPage({this.message, this.onPressBack});
+  SecondPage({this.message, this.testingMap, this.onPressBack});
   final String message;
+  final Map testingMap;
   final Function onPressBack;
 
   @override
@@ -25,6 +26,9 @@ class SecondPage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+            testingMap != null
+                ? Text('Passed map data: ${testingMap.toString()}')
+                : Container(),
             FlatButton(
                 onPressed: onPressBack,
                 color: Colors.blue,

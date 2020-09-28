@@ -10,41 +10,39 @@ class Application {
   static fluro.Router router;
 }
 
-class Routes {
-  static String root = "/";
-  static String demoSimple = "/demo";
-  static String demoSimpleFixedTrans = "/demo/fixedtrans";
-  static String demoFunc = "/demo/func";
-  static String deepLink = "/message";
+const String HomeRoute = "/";
+const String SecondPageRoute = "/second";
 
+class Routes {
   static void configureRoutes(fluro.Router router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      print("ROUTE WAS NOT FOUND !!!");
+      return Container(
+        child: Text('Page does not exist!'),
+      );
     });
-    router.define(root, handler: rootHandler);
-    router.define(demoSimple, handler: demoRouteHandler);
-    router.define(demoSimpleFixedTrans,
-        handler: demoRouteHandler, transitionType: TransitionType.inFromLeft);
-    router.define(demoFunc, handler: demoFunctionHandler);
+    router.define(HomeRoute, handler: homeRouteHandler);
+    router.define(SecondPageRoute, handler: secondRouteHandler);
   }
 }
 
-var rootHandler = Handler(
+var homeRouteHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return HomePage(
     onPressRouteButton: () {
-      String message = "hello there is special case is okay??!!@@";
+      // Setup testing values
+      String message = "Fluro routing test message";
       Map testingMap = {
         "key1": false,
         "key2": "string tester is here",
         "key3": 99
       };
 
-      String route1 = "/demo?message=$message&map=${jsonEncode(testingMap)}";
+      // Create url out of it
+      String route1 =
+          "$SecondPageRoute?message=$message&map=${jsonEncode(testingMap)}";
 
-      String route2 = "/demo/func";
-
+      // route!
       Application.router.navigateTo(context, route1,
           transition: fluro.TransitionType.fadeIn,
           transitionDuration: Duration(milliseconds: 150));
@@ -52,48 +50,23 @@ var rootHandler = Handler(
   );
 });
 
-var demoRouteHandler = Handler(
+var secondRouteHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  print('Check param: ${params.toString()}');
   if (params.length == 0)
     return Container(
       child: Text('Loading...'),
     );
 
-  print('Message length? ${params['message'].length}');
   String message = params['message'].first ?? 'No message';
+  Map testingMap = jsonDecode(params['map'].first) ?? {};
 
   return SecondPage(
       message: message,
+      testingMap: testingMap,
       onPressBack: () {
-        Application.router.navigateTo(context, '/',
+        Application.router.navigateTo(context, HomeRoute,
             clearStack: true,
             transition: fluro.TransitionType.fadeIn,
             transitionDuration: Duration(milliseconds: 150));
       });
 });
-
-var demoFunctionHandler = Handler(
-    type: HandlerType.function,
-    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      String message = params["message"]?.first;
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "Demo Function Handler!",
-            ),
-            content: Text("$message"),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-    });
