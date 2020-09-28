@@ -1,5 +1,6 @@
 /*
   https://www.filledstacks.com/post/flutter-web-advanced-navigation/
+  https://github.com/FilledStacks/flutter-tutorials/tree/master/037-advanced-web-navigation/00-starting
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_study_web/routes/dane_mackier/routes.dart';

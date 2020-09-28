@@ -4,5 +4,5 @@ import 'package:flutter_study_web/routes/dane_mackier/app.dart' as dmApp;
 import 'package:flutter_study_web/routes/no_package/app.dart' as noPackageApp;
 
 void main() {
-  runApp(noPackageApp.App());
+  runApp(fluroApp.App());
 }
