@@ -3,7 +3,7 @@
   https://github.com/FilledStacks/flutter-tutorials/tree/master/037-advanced-web-navigation/00-starting
 */
 import 'package:flutter/material.dart';
-import 'package:flutter_study_web/routes/dane_mackier/routes.dart';
+import 'package:flutter_study_web/tutorialPages/01_routes/dane_mackier/routes.dart';
 
 class App extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   _AppState() {
-    setupLocator();
+    setupLocatorRouteTutorial();
   }
 
   @override
@@ -23,7 +23,8 @@ class _AppState extends State<App> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorKey:
+          routeTutorialLocator<NavigationServiceTutorial>().navigatorKey,
       onGenerateRoute: generateRoute,
       initialRoute: HomeRoute,
     );

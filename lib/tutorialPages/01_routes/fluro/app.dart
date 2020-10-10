@@ -5,7 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart' as fluro;
-import 'package:flutter_study_web/routes/fluro/routes.dart';
+import 'package:flutter_study_web/tutorialPages/01_routes/fluro/routes.dart';
 
 class App extends StatefulWidget {
   @override

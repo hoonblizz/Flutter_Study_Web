@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study_web/routes/pages/home.dart';
-import 'package:flutter_study_web/routes/pages/second_page.dart';
+import 'package:flutter_study_web/tutorialPages/01_routes/pages/home.dart';
+import 'package:flutter_study_web/tutorialPages/01_routes/pages/second_page.dart';
 import 'package:get_it/get_it.dart';
 
 const String HomeRoute = '/';
@@ -13,7 +13,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeRoute:
       return _getPageRoute(HomePage(
         onPressRouteButton: () {
-          locator<NavigationService>().navigateTo(SecondPageRoute,
+          routeTutorialLocator<NavigationServiceTutorial>().navigateTo(
+              SecondPageRoute,
               queryParams: {'message': 'Message from home'});
         },
       ), settings);
@@ -24,7 +25,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           SecondPage(
             message: message,
             onPressBack: () {
-              locator<NavigationService>().goBack();
+              routeTutorialLocator<NavigationServiceTutorial>().goBack();
             },
           ),
           settings);
@@ -32,7 +33,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     default:
       return _getPageRoute(HomePage(
         onPressRouteButton: () {
-          locator<NavigationService>().navigateTo(SecondPageRoute,
+          routeTutorialLocator<NavigationServiceTutorial>().navigateTo(
+              SecondPageRoute,
               queryParams: {'message': 'Message from home'});
         },
       ), settings);
@@ -68,13 +70,13 @@ class FadeRoute extends PageRouteBuilder {
         );
 }
 
-GetIt locator = GetIt.instance;
+GetIt routeTutorialLocator = GetIt.instance;
 
-void setupLocator() {
-  locator.registerLazySingleton(() => NavigationService());
+void setupLocatorRouteTutorial() {
+  routeTutorialLocator.registerLazySingleton(() => NavigationServiceTutorial());
 }
 
-class NavigationService {
+class NavigationServiceTutorial {
   List<String> pathHistory = [];
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+
+class SideDrawer extends StatefulWidget {
+  const SideDrawer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _SideDrawerState createState() => _SideDrawerState();
+}
+
+class _SideDrawerState extends State<SideDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Theme.of(context).bottomAppBarColor,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  'Discover',
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                child: Divider(
+                  color: Colors.blueGrey[400],
+                  thickness: 2,
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  'Contact Us',
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                ),
+              ),
+              // Expanded(
+              //   child: Align(
+              //     alignment: Alignment.bottomCenter,
+              //     child: Text(
+              //       'Copyright © 2020 | ${kWebsiteTitle.toUpperCase()}',
+              //       style: TextStyle(
+              //         color: Colors.blueGrey[300],
+              //         fontSize: 14,
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

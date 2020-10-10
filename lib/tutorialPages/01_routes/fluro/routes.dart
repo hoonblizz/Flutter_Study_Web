@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:fluro/fluro.dart' as fluro;
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study_web/routes/pages/home.dart';
-import 'package:flutter_study_web/routes/pages/second_page.dart';
+import 'package:flutter_study_web/tutorialPages/01_routes/pages/home.dart';
+import 'package:flutter_study_web/tutorialPages/01_routes/pages/second_page.dart';
 
 class Application {
   static fluro.Router router;
