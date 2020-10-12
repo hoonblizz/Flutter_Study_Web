@@ -21,7 +21,7 @@ class _AppState extends State<App> {
             ? ThemeData(
                 primarySwatch: Colors.blueGrey,
                 backgroundColor: Colors.white,
-                cardColor: Colors.blueGrey[50],
+                cardColor: Colors.blueGrey[600],
                 primaryTextTheme: TextTheme(
                   button: TextStyle(
                     color: Colors.blueGrey,
@@ -33,7 +33,11 @@ class _AppState extends State<App> {
                   subtitle1: TextStyle(
                     color: Colors.black,
                   ),
-                  headline1: TextStyle(color: Colors.blueGrey[800]),
+                  headline1: TextStyle(
+                    color: Colors.blueGrey[800],
+                  ),
+                  bodyText1: TextStyle(color: Colors.white),
+                  //bodyText2: TextStyle(color: Colors.blueGrey[50]),
                 ),
                 bottomAppBarColor: Colors.blueGrey[900],
                 iconTheme: IconThemeData(color: Colors.blueGrey),
@@ -42,10 +46,10 @@ class _AppState extends State<App> {
             : ThemeData(
                 primarySwatch: Colors.blueGrey,
                 backgroundColor: Colors.blueGrey[900],
-                cardColor: Colors.black,
+                cardColor: Colors.blueGrey[50],
                 primaryTextTheme: TextTheme(
                   button: TextStyle(
-                    color: Colors.blueGrey[200],
+                    color: Colors.white,
                     decorationColor: Colors.blueGrey[50],
                   ),
                   subtitle2: TextStyle(
@@ -57,6 +61,8 @@ class _AppState extends State<App> {
                   headline1: TextStyle(
                     color: Colors.white70,
                   ),
+                  bodyText1: TextStyle(color: Colors.black),
+                  //bodyText2: TextStyle(color: Colors.black),
                 ),
                 bottomAppBarColor: Colors.black,
                 iconTheme: IconThemeData(color: Colors.blueGrey[200]),
@@ -66,7 +72,13 @@ class _AppState extends State<App> {
       themedWidgetBuilder: (context, data) => MaterialApp(
         title: 'Coding Sloth',
         debugShowCheckedModeBanner: false,
-        theme: data,
+        theme: data.copyWith(
+          // originalSize * fontSizeFactor + fontSizeDelta
+          textTheme: Theme.of(context).textTheme.apply(
+                fontSizeFactor: 1.0,
+                fontSizeDelta: 2.0,
+              ),
+        ),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: generateRoute,
         initialRoute: HomePageRoute,

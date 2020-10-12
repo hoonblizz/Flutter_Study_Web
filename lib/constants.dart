@@ -14,3 +14,5 @@ TextStyle kWebsiteTitleTextStyle = TextStyle(
   // This stops letters moving when hover
   shadows: [Shadow(blurRadius: 0.1, color: Colors.transparent)],
 );
+
+double kBodyHorizontalPadding = 20.0;

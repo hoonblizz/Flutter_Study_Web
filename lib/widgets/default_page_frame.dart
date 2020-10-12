@@ -71,7 +71,7 @@ class _DefaultPageFrameState extends State<DefaultPageFrame> {
                   children: [
                     // Empty space to place below the image.
                     Container(
-                      height: screenSize.height * 0.20 + 10,
+                      height: screenSize.height * 0.20 + 20,
                       width: screenSize.width,
                       child: Container(),
                     ),
