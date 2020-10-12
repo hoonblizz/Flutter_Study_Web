@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study_web/constants.dart';
 import 'package:flutter_study_web/responsive.dart';
 import 'package:flutter_study_web/widgets/default_page_frame.dart';
+import 'package:http/http.dart' as http;
 
 class FirebaseFunctionsTutorialPage extends StatefulWidget {
   @override
@@ -11,10 +15,81 @@ class FirebaseFunctionsTutorialPage extends StatefulWidget {
 
 class _FirebaseFunctionsTutorialPageState
     extends State<FirebaseFunctionsTutorialPage> {
-  String _responseOnRequest = "";
+  String _responseOnRequestGET = "";
+  String _responseOnRequestPOST = "";
   String _responseOnCall = "";
-  void _onPressTestOnRequest() async {}
-  void _onPressTestOnCall() async {}
+  void _onPressTestOnRequestGET() async {
+    setState(() {
+      _responseOnRequestGET = "";
+    });
+    try {
+      final res = await http.get(
+          "https://us-central1-flutterstudyweb.cloudfunctions.net/testOnRequest?message=hello&num1=2&num2=4");
+      print('[onRequest] Res: ${res.body.toString()}');
+      setState(() {
+        _responseOnRequestGET = res.body.toString();
+      });
+    } catch (e) {
+      setState(() {
+        _responseOnRequestGET = '[onRequest] General exception:' + e.toString();
+      });
+    }
+  }
+
+  void _onPressTestOnRequestPOST() async {
+    setState(() {
+      _responseOnRequestPOST = "";
+    });
+    try {
+      final res = await http.post(
+          "https://us-central1-flutterstudyweb.cloudfunctions.net/testOnRequest",
+          body: jsonEncode({
+            'message': 'hello there',
+            'num1': 3,
+            'num2': 4,
+          }));
+      print('[onRequest] Res: ${res.body.toString()}');
+      setState(() {
+        _responseOnRequestPOST = res.body.toString();
+      });
+    } catch (e) {
+      setState(() {
+        _responseOnRequestPOST =
+            '[onRequest] General exception:' + e.toString();
+      });
+    }
+  }
+
+  void _onPressTestOnCall() async {
+    setState(() {
+      _responseOnCall = "";
+    });
+    try {
+      final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
+        functionName: 'testOnCall',
+      );
+
+      dynamic resp = await callable.call(<String, dynamic>{
+        'message': 'Hello there',
+        'num1': 2,
+        'num2': 4,
+      });
+
+      print('[onCall] Res: ${resp.data.toString()}');
+      setState(() {
+        _responseOnCall = resp.data.toString();
+      });
+    } on CloudFunctionsException catch (e) {
+      setState(() {
+        _responseOnCall = e.code + ': ' + e.message + ' => ' + e.details;
+      });
+    } catch (e) {
+      setState(() {
+        _responseOnCall = '[onCall] General exception:' + e.toString();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -38,9 +113,9 @@ class _FirebaseFunctionsTutorialPageState
                       children: _contentWidget(
                         themeData,
                         screenSize,
-                        'Click to test onRequest',
-                        _onPressTestOnRequest,
-                        _responseOnRequest,
+                        'Click to test GET request',
+                        _onPressTestOnRequestGET,
+                        _responseOnRequestGET,
                       ),
                     )
                   : Row(
@@ -49,15 +124,49 @@ class _FirebaseFunctionsTutorialPageState
                       children: _contentWidget(
                         themeData,
                         screenSize,
-                        'Click to test onRequest',
-                        _onPressTestOnRequest,
-                        _responseOnRequest,
+                        'Click to test GET request',
+                        _onPressTestOnRequestGET,
+                        _responseOnRequestGET,
                       ),
                     ),
             ),
           ),
           SizedBox(
-            height: 25,
+            height: 20,
+          ),
+          Container(
+            width: cardWidth,
+            padding: EdgeInsets.all(kBodyHorizontalPadding),
+            //padding: EdgeInsets.symmetric(horizontal: kBodyHorizontalPadding),
+            child: Card(
+              elevation: 5.0,
+              child: ResponsiveWidget.isSmallScreen(context)
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _contentWidget(
+                        themeData,
+                        screenSize,
+                        'Click to test POST request',
+                        _onPressTestOnRequestPOST,
+                        _responseOnRequestPOST,
+                      ),
+                    )
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _contentWidget(
+                        themeData,
+                        screenSize,
+                        'Click to test POST request',
+                        _onPressTestOnRequestPOST,
+                        _responseOnRequestPOST,
+                      ),
+                    ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           // On Call Test button and Response text
           Container(
