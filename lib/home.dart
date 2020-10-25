@@ -18,10 +18,17 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           FlatButton(
-              onPressed: () {
-                locator<NavigationService>().navigateTo(FBFunctionsPageRoute);
-              },
-              child: Text('Firebase function tutorial')),
+            onPressed: () {
+              locator<NavigationService>().navigateTo(FBFunctionsPageRoute);
+            },
+            child: Text('Firebase function tutorial'),
+          ),
+          FlatButton(
+            onPressed: () {
+              locator<NavigationService>().navigateTo(AWSRealtimePageRoute);
+            },
+            child: Text('AWS Realtime database tutorial'),
+          ),
           Text('Num 1'),
           Text('Num 2'),
           Container(

@@ -35,7 +35,7 @@ dependencies:
   firebase_core:
   cloud_functions:
   http:
-  web_socket_channel: ^1.1.0
+  web_socket_channel:
 
 dev_dependencies:
   flutter_test:
