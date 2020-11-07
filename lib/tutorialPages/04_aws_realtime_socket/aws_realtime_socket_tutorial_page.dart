@@ -17,14 +17,28 @@ class AWSRealtimeSocketTutorialPage extends StatefulWidget {
 class _AWSRealtimeSocketTutorialPageState
     extends State<AWSRealtimeSocketTutorialPage> {
   String socketData;
+  Map connectionData;
 
   @override
   void initState() {
     // Start listening socket stream
     widget.socketChannel.stream.listen((message) {
       print('Message from stream listen: $message');
-      setState(() => socketData = message);
+      Map tempMessageParser = jsonDecode(message);
+
+      // Result from ping
+      bool fromPing = false;
+      if (tempMessageParser.containsKey('fromPing') &&
+          tempMessageParser['fromPing']) {
+        fromPing = true;
+      }
+      setState(() {
+        socketData = message;
+        if (fromPing) connectionData = tempMessageParser;
+      }); // display WHATEVER data received
     });
+
+    _ping(); // Ping to get connection info
 
     super.initState();
   }
@@ -35,6 +49,13 @@ class _AWSRealtimeSocketTutorialPageState
     widget.socketChannel.sink.close();
     super.dispose();
   }
+
+  void _ping() async {
+    widget.socketChannel.sink.add(jsonEncode({"action": "databasePing"}));
+    print('Pinged.....');
+  }
+
+  void _login() async {}
 
   void _onWriteThroughSocket() async {
     // Generate a random number
@@ -75,6 +96,20 @@ class _AWSRealtimeSocketTutorialPageState
               padding:
                   const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
               child: Text(socketData != null ? '$socketData' : 'Empty'),
+            ),
+          ),
+          Container(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+              child: Column(
+                children: [
+                  Text('Connection Data from pinging:'),
+                  Text(connectionData != null
+                      ? '${jsonEncode(connectionData)}'
+                      : 'NA'),
+                ],
+              ),
             ),
           )
         ],
