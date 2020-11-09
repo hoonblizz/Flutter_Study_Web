@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study_web/home.dart';
 import 'package:flutter_study_web/tutorialPages/02_firebase_functions/firebase_functions_tutorial_page.dart';
+import 'package:flutter_study_web/tutorialPages/04_aws_realtime_socket/aws_realtime_socket_tutorial_chat_page.dart';
 import 'package:flutter_study_web/tutorialPages/04_aws_realtime_socket/aws_realtime_socket_tutorial_page.dart';
 import 'package:get_it/get_it.dart';
 import 'package:web_socket_channel/html.dart';
@@ -8,6 +9,7 @@ import 'package:web_socket_channel/html.dart';
 const String HomePageRoute = '/';
 const String FBFunctionsPageRoute = '/firebase-functions';
 const String AWSRealtimePageRoute = '/aws-realtime-socket';
+const String AWSRealtimeChatPageRoute = '/chat';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name.getRoutingData;
@@ -30,10 +32,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(FirebaseFunctionsTutorialPage(), settings);
 
     case AWSRealtimePageRoute:
+      return _getPageRoute(AWSRealtimeSocketTutorialPage(), settings);
+
+    case AWSRealtimeChatPageRoute:
+      String userName = routingData['userName'];
       return _getPageRoute(
-          AWSRealtimeSocketTutorialPage(
+          AWSRealtimeSocketTutorialChatPage(
             socketChannel: HtmlWebSocketChannel.connect(
                 "wss://us2q8s4g99.execute-api.us-east-1.amazonaws.com/dev"),
+            userName: userName,
           ),
           settings);
 
