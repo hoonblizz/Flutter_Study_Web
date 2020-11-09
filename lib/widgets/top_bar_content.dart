@@ -43,7 +43,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   locator<NavigationService>().goBackToStart();
                 },
                 child: Text(
-                  kWebsiteTitle.toUpperCase(),
+                  'HOME', // kWebsiteTitle.toUpperCase(),
                   style: kWebsiteTitleTextStyle,
                 ),
               ),

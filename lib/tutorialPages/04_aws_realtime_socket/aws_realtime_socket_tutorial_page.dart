@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study_web/routes.dart';
 import 'package:flutter_study_web/widgets/default_page_frame.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class AWSRealtimeSocketTutorialPage extends StatefulWidget {
   @override
@@ -35,16 +34,7 @@ class _AWSRealtimeSocketTutorialPageState
           Container(
             padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
             width: screenSize.width * 0.6,
-            // decoration: BoxDecoration(
-            //   border: Border.all(
-            //     color: Colors.grey.shade600,
-            //   ),
-            // ),
-            //color: Colors.grey.shade300,
             child: Row(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
                   child: TextField(

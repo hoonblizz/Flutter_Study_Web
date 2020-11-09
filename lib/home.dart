@@ -17,25 +17,25 @@ class _HomePageState extends State<HomePage> {
     return DefaultPageFrame(
       body: Column(
         children: [
-          FlatButton(
-            onPressed: () {
-              locator<NavigationService>().navigateTo(FBFunctionsPageRoute);
-            },
-            child: Text('Firebase function tutorial'),
-          ),
+          // FlatButton(
+          //   onPressed: () {
+          //     locator<NavigationService>().navigateTo(FBFunctionsPageRoute);
+          //   },
+          //   child: Text('Firebase function tutorial'),
+          // ),
           FlatButton(
             onPressed: () {
               locator<NavigationService>().navigateTo(AWSRealtimePageRoute);
             },
-            child: Text('AWS Realtime database tutorial'),
+            child: Text('AWS Realtime database tester'),
           ),
-          Text('Num 1'),
-          Text('Num 2'),
-          Container(
-            height: screenSize.height + 100,
-            width: screenSize.width,
-            child: Text('Take space'),
-          ),
+          // Text('Num 1'),
+          // Text('Num 2'),
+          // Container(
+          //   height: screenSize.height + 100,
+          //   width: screenSize.width,
+          //   child: Text('Take space'),
+          // ),
         ],
       ),
     );

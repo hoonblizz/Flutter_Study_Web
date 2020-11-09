@@ -61,9 +61,9 @@ class _DefaultPageFrameState extends State<DefaultPageFrame> {
                   height: screenSize.height * 0.20,
                   width: screenSize.width,
                   alignment: Alignment.center,
-                  color: Colors.purple,
+                  color: Colors.grey.shade600,
                   child: Text(
-                    'Put image here',
+                    '',
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                 ),

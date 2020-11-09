@@ -17,17 +17,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomePageRoute:
       return _getPageRoute(HomePage(), settings);
 
-    // case FBFunctionsPageRoute:
-    //   String message = routingData['message'];
-    //   return _getPageRoute(
-    //       SecondPage(
-    //         message: message,
-    //         onPressBack: () {
-    //           locator<NavigationService>().goBack();
-    //         },
-    //       ),
-    //       settings);
-
     case FBFunctionsPageRoute:
       return _getPageRoute(FirebaseFunctionsTutorialPage(), settings);
 

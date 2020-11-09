@@ -21,7 +21,7 @@ Widget appBarWidget(context, screenSize, opacityVal) {
               locator<NavigationService>().goBackToStart();
             },
             child: Text(
-              kWebsiteTitle.toUpperCase(),
+              'HOME', // kWebsiteTitle.toUpperCase(),
               style: kWebsiteTitleTextStyle,
             ),
           ),
